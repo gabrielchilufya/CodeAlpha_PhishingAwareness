@@ -20,3 +20,4 @@ HTML, CSS, and vanilla JavaScript in a single file.
 
 ## Author
 Gabriel Chilufya
+
