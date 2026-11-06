@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phishing Awareness Training</title>
+<style>
+:root{--bg:#f2f5f8;--ink:#14202b;--mute:#52606d;--card:#fff;--line:#d3dbe3;--red:#c9302c;--green:#1f7a4d;--blue:#2b5c8a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:clamp(2rem,6vw,3rem);line-height:1.1;margin:32px 0 12px;letter-spacing:-.02em}
+h2{font-size:1.5rem;margin:56px 0 8px}
+p.lead{font-size:1.1rem;color:var(--mute);max-width:60ch}
+section>p{max-width:65ch}
+.mail{background:var(--card);border:1px solid var(--line);border-radius:8px;margin:20px 0;overflow:hidden}
+.mail header{padding:14px 18px;border-bottom:1px solid var(--line);background:#e9eef3;font-size:.95rem}
+.mail .body{padding:18px}
+.hit{background:none;border:0;border-bottom:2px dashed var(--blue);font:inherit;color:inherit;padding:0;cursor:pointer;text-align:left}
+.hit:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.hit.found{border-bottom:2px solid var(--red);background:#fbe4e3}
+.btn{display:inline-block;background:var(--blue);color:#fff;padding:8px 16px;border-radius:4px;margin:8px 0}
+#note{min-height:3.4em;background:var(--card);border-left:4px solid var(--blue);padding:10px 14px;margin:12px 0}
+#score{font-weight:600}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.box h3{margin:0 0 4px;font-size:1.05rem}
+.box p{margin:0;color:var(--mute);font-size:.95rem}
+.case{border-left:4px solid var(--red);padding:2px 0 2px 14px;margin:18px 0}
+.case b{display:block}
+ul.check{list-style:none;padding:0}
+ul.check li{padding:8px 0 8px 30px;border-bottom:1px solid var(--line);position:relative}
+ul.check li::before{content:"\2713";position:absolute;left:4px;color:var(--green);font-weight:700}
+.q{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin:14px 0}
+.q p{margin:0 0 10px;font-weight:600}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:6px;padding:9px 12px;margin:6px 0;font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--blue)}
+.opt.ok{background:#e1f3ea;border-color:var(--green)}
+.opt.bad{background:#fbe4e3;border-color:var(--red)}
+.why{margin-top:8px;color:var(--mute);font-size:.95rem}
+#result{font-size:1.2rem;font-weight:700;margin-top:16px}
+footer{margin-top:56px;color:var(--mute);font-size:.9rem}
+@media (prefers-reduced-motion:no-preference){.opt{transition:border-color .15s}}
+</style>
+</head>
+<body>
+<main>
+<h1>Don't take the bait.</h1>
+<p class="lead">Phishing is the most common way attackers get into accounts and companies. This 10-minute module teaches you to spot it, understand how attackers think, and test yourself.</p>
+
+<section>
+<h2>Spot the phish</h2>
+<p>This email looks routine. Click every part that looks suspicious. There are 5 red flags.</p>
+<div class="mail" id="mail">
+<header>
+<div><b>From:</b> <button class="hit" data-why="Sender domain is 'paypa1-support.com', with the number 1 instead of the letter l. Always read the full sender address, not just the display name.">PayPal Support &lt;security@paypa1-support.com&gt;</button></div>
+<div><b>Subject:</b> <button class="hit" data-why="Urgency and threat. Attackers want you to act before you think.">URGENT: Account will be closed in 24 hours!</button></div>
+</header>
+<div class="body">
+<p><button class="hit" data-why="Generic greeting. A real provider usually uses your name.">Dear Customer,</button></p>
+<p>We noticed unusual activity on your account. To keep it active, you must verify your details now.</p>
+<p><button class="hit" data-why="Link text says paypal.com, but hovering would show a different destination such as http://paypa1-verify.xyz/login. Never click, so go to the site by typing the address yourself.">www.paypal.com/verify-account</button></p>
+<p><button class="hit" data-why="Unexpected attachment. 'Form.html.zip' can hide malware or a fake login page. Real companies do not send forms like this.">Attachment: Verification_Form.html.zip</button></p>
+</div>
+</div>
+<p id="score">Found 0 of 5</p>
+<div id="note" aria-live="polite">Click a highlighted-on-hover element to inspect it.</div>
+</section>
+
+<section>
+<h2>How attackers manipulate you</h2>
+<p>Phishing works on people, not computers. This is social engineering: using emotion to bypass logic.</p>
+<div class="grid">
+<div class="box"><h3>Urgency</h3><p>"Act now or lose access." Pressure removes time to think.</p></div>
+<div class="box"><h3>Authority</h3><p>Pretending to be your boss, bank, IT team, or government.</p></div>
+<div class="box"><h3>Fear</h3><p>Threats of fines, locked accounts, or legal action.</p></div>
+<div class="box"><h3>Greed and curiosity</h3><p>Prizes, refunds, "see who viewed your profile".</p></div>
+<div class="box"><h3>Trust</h3><p>Pretexting: a believable story, often with details found on social media.</p></div>
+<div class="box"><h3>Other channels</h3><p>SMS (smishing), phone calls (vishing), QR codes, fake login sites.</p></div>
+</div>
+</section>
+
+<section>
+<h2>Real-world examples</h2>
+<div class="case"><b>Target, 2013</b>Attackers phished a heating and cooling vendor, used its credentials to get into Target's network, and stole payment card data from millions of customers.</div>
+<div class="case"><b>Ubiquiti, 2015</b>Fraudulent emails impersonating executives tricked staff into wiring about $46 million to attacker-controlled accounts. This is business email compromise.</div>
+<div class="case"><b>Google Docs, 2017</b>A fake "shared document" email asked people to grant a malicious app access to their Gmail, spreading to their contacts within hours.</div>
+<div class="case"><b>Twitter, 2020</b>Attackers phoned employees posing as internal IT, got their credentials, and took over high-profile accounts to run a bitcoin scam.</div>
+</section>
+
+<section>
+<h2>How to protect yourself</h2>
+<ul class="check">
+<li>Check the full sender address and hover over links before clicking.</li>
+<li>Go to websites by typing the address or using a bookmark, not an emailed link.</li>
+<li>Never share passwords, OTP codes, or PINs, since legitimate staff never ask.</li>
+<li>Turn on multi-factor authentication on every important account.</li>
+<li>Use a password manager. It will not autofill on fake domains.</li>
+<li>Verify unusual requests (payments, gift cards) through a second channel, like a phone call.</li>
+<li>Report suspicious messages to your IT or security team, then delete them.</li>
+<li>If you clicked something, change your password immediately and tell someone.</li>
+</ul>
+</section>
+
+<section>
+<h2>Test yourself</h2>
+<div id="quiz"></div>
+<div id="result" aria-live="polite"></div>
+</section>
+
+<footer>CodeAlpha Cyber Security Internship, Task 2: Phishing Awareness Training</footer>
+</main>
+
+<script>
+// Spot-the-phish
+var found = 0, hits = document.querySelectorAll('.hit');
+hits.forEach(function (h) {
+  h.addEventListener('click', function () {
+    document.getElementById('note').textContent = h.dataset.why;
+    if (!h.classList.contains('found')) {
+      h.classList.add('found'); found++;
+      document.getElementById('score').textContent = found === hits.length
+        ? 'Found all 5. Great eye!' : 'Found ' + found + ' of 5';
+    }
+  });
+});
+
+// Quiz
+var Q = [
+  {q: 'Which sender address is most likely a phishing attempt?', o: ['support@microsoft.com', 'support@micros0ft-security.net', 'noreply@accounts.google.com'], a: 1, w: 'Look-alike domains swap letters for numbers and add extra words.'},
+  {q: 'Your "boss" emails asking you to urgently buy gift cards and send the codes. What do you do?', o: ['Buy them quickly, since it is your boss', 'Reply asking for more details', 'Verify by calling your boss on a known number'], a: 2, w: 'Always confirm unusual requests through a second, trusted channel.'},
+  {q: 'You get a text saying your parcel is held and asking you to pay a small fee via a link. This is...', o: ['Smishing (SMS phishing)', 'Normal delivery practice', 'A system update'], a: 0, w: 'Small fees and links in texts are a classic smishing trick.'},
+  {q: 'Which is the safest way to check a message claiming to be from your bank?', o: ['Click the link in the message', 'Open your bank\'s app or type its address yourself', 'Call the number in the message'], a: 1, w: 'Never trust contact details or links inside the suspicious message itself.'},
+  {q: 'You already clicked a phishing link and entered your password. First step?', o: ['Do nothing and hope', 'Change the password and report it', 'Delete the email only'], a: 1, w: 'Act fast: change the password, enable MFA, and tell your security team.'},
+  {q: 'Which tactic is NOT typical of phishing?', o: ['Creating urgency', 'Giving you plenty of time to verify independently', 'Impersonating an authority'], a: 1, w: 'Attackers want to rush you. Time is their enemy.'}
+], right = 0, done = 0, box = document.getElementById('quiz');
+Q.forEach(function (item, i) {
+  var d = document.createElement('div'); d.className = 'q';
+  d.innerHTML = '<p>' + (i + 1) + '. ' + item.q + '</p>';
+  var why = document.createElement('div'); why.className = 'why';
+  item.o.forEach(function (text, j) {
+    var b = document.createElement('button'); b.className = 'opt'; b.textContent = text;
+    b.onclick = function () {
+      d.querySelectorAll('.opt').forEach(function (x) { x.disabled = true; });
+      var good = j === item.a;
+      b.classList.add(good ? 'ok' : 'bad');
+      if (!good) d.querySelectorAll('.opt')[item.a].classList.add('ok');
+      why.textContent = (good ? 'Correct. ' : 'Not quite. ') + item.w;
+      if (good) right++; done++;
+      if (done === Q.length) document.getElementById('result').textContent =
+        'Your score: ' + right + ' / ' + Q.length + (right >= 5 ? '. You are phishing-aware!' : '. Review the sections above and try again.');
+    };
+    d.appendChild(b);
+  });
+  d.appendChild(why); box.appendChild(d);
+});
+</script>
+</body>
+</html>
